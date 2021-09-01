@@ -20,7 +20,6 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "favicon.png",
               "src/assets",
               {
                 "glob": "_redirects",
