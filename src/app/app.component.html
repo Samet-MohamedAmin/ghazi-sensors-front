@@ -1,0 +1,13 @@
+<div class="container">
+    <h3>Choose date</h3>
+
+    <mat-card class="calendar">
+        <mat-calendar (selectedChange)="changeDate($event)"></mat-calendar>
+    </mat-card>
+
+    <app-sensor
+        *ngFor="let item of items"
+        [name]="item.name"
+        [dataPoints]="item.dataPoints"></app-sensor>
+
+</div>
