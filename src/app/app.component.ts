@@ -18,15 +18,18 @@ const monthNames: string[] = [
 
 export class AppComponent {
 
+  date: Date;
+
   items: {name: string, dataPoints: DataPoint}[] = []
 
   constructor(private service: SensorService, private cdRef:ChangeDetectorRef){
-    const date = new Date("2021-08-30");
-    this.changeDate(date);
+    this.date = new Date();
+    this.changeDate(this.date);
   }
 
   changeDate(date: Date) {
     this.service.getSensorsData(date).subscribe(sensors => {
+      this.date = date;
       this.items = []
       this.cdRef.detectChanges()
       console.log(date)
