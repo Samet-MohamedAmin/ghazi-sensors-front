@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import * as CanvasJS from '../../canvasjs.min';
 import { DataPoint } from '../../models/data-point.interface';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-sensor',
@@ -27,7 +24,8 @@ export class SensorComponent implements AfterViewInit {
       },
       axisY: {
         minimum: 0,
-        maximum: 1,
+        maximum: 1.5,
+        interval: 1,
       },
       data: [{
         type: "stepArea",
