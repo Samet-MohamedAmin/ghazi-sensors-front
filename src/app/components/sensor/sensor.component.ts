@@ -31,8 +31,8 @@ export class SensorComponent implements AfterViewInit {
       },
       data: [{
         type: "stepArea",
-        color: "#757de8",
-        lineColor: "#3f51b5",
+        color: "#3f51b5",
+        lineColor: "#002984",
         dataPoints: this.dataPoints,
       }]
     });
