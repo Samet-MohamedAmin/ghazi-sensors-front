@@ -52,6 +52,4 @@ export class SensorComponent implements AfterViewInit {
     this.chart = this.generateChart();
     this.chart.render();
   }
-
-
 }
