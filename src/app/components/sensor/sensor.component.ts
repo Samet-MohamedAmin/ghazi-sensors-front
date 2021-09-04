@@ -29,10 +29,14 @@ export class SensorComponent implements AfterViewInit {
         maximum: 1.5,
         interval: 1,
       },
+      toolTip:{
+        enabled: false
+      },
       data: [{
         type: "stepArea",
         color: "#3f51b5",
         lineColor: "#002984",
+        markerType: "none",
         dataPoints: this.dataPoints,
       }]
     });
