@@ -13,17 +13,17 @@ import {FormControl} from '@angular/forms';
 export class SensorComponent implements AfterViewInit {
   chart: any;
 
-  @Input() name;
+  @Input() ref;
   @Input() dataPoints: DataPoint[];
 
   constructor() {}
 
   generateChart(): any {
-    let chart = new CanvasJS.Chart(`chartContainer${this.name}`, {
+    let chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: this.name
+        text: `${this.ref} presence`
       },
       data: [{
         type: "spline",

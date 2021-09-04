@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   date: Date = new Date();
   ref: string = DEFAULT_CAR_REF;
   
-  items: {name: string, dataPoints: DataPoint[]}[] = []
+  items: {ref: string, dataPoints: DataPoint[]}[] = []
   
   refList: string[] = [];
   myControl = new FormControl('', [this.ValidateRef(this)]);
@@ -105,7 +105,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(this.date)
       console.log(sensors)
       const presentData: DataPoint[] = this.service.getPresentData(sensors)
-      this.items.push({name: `${this.ref} Presence`, dataPoints: presentData})
+      this.items.push({ref: this.ref, dataPoints: presentData})
       this.cdRef.detectChanges()
     })
   }
