@@ -10,19 +10,30 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { SensorComponent } from './sensor/sensor.component';
+import { SensorComponent } from './components/sensor/sensor.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+import { MatIconModule } from '@angular/material/icon'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     SensorComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatIconModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,

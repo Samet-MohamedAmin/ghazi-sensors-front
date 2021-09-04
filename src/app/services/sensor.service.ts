@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Sensors } from './sensor.interface';
-import { DataPoint } from './data-point.interface';
+import { Sensors } from '../models/sensor.interface';
+import { DataPoint } from '../models/data-point.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class SensorService {
 
   constructor(private http: HttpClient) {}
 
-   getSensorsData(date: Date) {
+   getSensorsData(date: Date): Observable<Sensors[]> {
     const year: number =date.getFullYear();
     const month: number =date.getMonth();
     const day: number = date.getDate();
@@ -20,11 +21,24 @@ export class SensorService {
     return this.http.get<Sensors[]>(URL);
   }
 
-  getTemp(sensors): DataPoint {
-    return sensors.map(s => {const d = new Date(s.date) ;return {y: parseInt(s.temp), label: d.toLocaleTimeString()}})
+  getSensorsPresentData(ref: string, date: Date): Observable<Sensors[]>{
+    const year: number =date.getFullYear();
+    const month: number =date.getMonth();
+    const day: number = date.getDate();
+    const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/ref/${ref}/date/${year}/${month}/${day}`;
+
+    return this.http.get<Sensors[]>(URL);
   }
 
-  getHum(sensors): DataPoint {
-    return sensors.map(s => {const d = new Date(s.date) ;return {y: parseInt(s.hum), label: d.toLocaleTimeString()}})
+  getPresentData(sensors: Sensors[]): DataPoint[] {
+    return sensors.map(s => {const d = new Date(s.date) ;return {y: s.isPresent, label: d.toLocaleTimeString()}})
+  }
+
+  getRefList(date: Date): Observable<string[]>{
+    const year: number =date.getFullYear();
+    const month: number =date.getMonth();
+    const day: number = date.getDate();
+    const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/reflist/date/${year}/${month}/${day}`;
+    return this.http.get<string[]>(URL);
   }
 }

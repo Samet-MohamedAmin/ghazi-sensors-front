@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import * as CanvasJS from '../canvasjs.min';
-import { DataPoint } from '../services/data-point.interface';
-import { SensorService } from '../services/sensor.service';
+import * as CanvasJS from '../../canvasjs.min';
+import { DataPoint } from '../../models/data-point.interface';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-sensor',
@@ -12,11 +14,9 @@ export class SensorComponent implements AfterViewInit {
   chart: any;
 
   @Input() name;
-
   @Input() dataPoints: DataPoint[];
 
-  constructor(private service: SensorService) {
-  }
+  constructor() {}
 
   generateChart(): any {
     let chart = new CanvasJS.Chart(`chartContainer${this.name}`, {
@@ -38,4 +38,5 @@ export class SensorComponent implements AfterViewInit {
 
     chart.render();
   }
+
 }

@@ -1,5 +1,5 @@
 export interface Sensors {
-  temp: string;
-  hum: string;
+  ref: string
   date: Date
+  isPresent: number
 }
