@@ -20,9 +20,6 @@
     </form>
 
 
-    <app-sensor
-        *ngFor="let item of items"
-        [ref]="item.ref"
-        [dataPoints]="item.dataPoints"></app-sensor>
+    <app-sensor [subject]="subjectChange"></app-sensor>
 
 </div>

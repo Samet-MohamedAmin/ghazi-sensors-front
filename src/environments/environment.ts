@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // BACKEND_URL: "https://ghazi-sensors.herokuapp.com",
-  BACKEND_URL: "http://localhost:3000"
+  BACKEND_URL: "https://ghazi-sensors.herokuapp.com",
+  // BACKEND_URL: "http://localhost:3000"
 };
 
 /*

@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DataPoint } from './models/data-point.interface';
 import { SensorService } from './services/sensor.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscriber } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -14,7 +14,7 @@ const monthNames: string[] = [
 ];
 
 const DEFAULT_CAR_REF = "EMPTY REF"
-const REFRESH_PERIOD_SECONDS = 5
+const REFRESH_PERIOD_SECONDS = 4
 
 @Component({
   selector: 'app-root',
@@ -24,15 +24,16 @@ const REFRESH_PERIOD_SECONDS = 5
 export class AppComponent implements OnInit, AfterViewInit {
   date: Date = new Date();
   ref: string = DEFAULT_CAR_REF;
+  dataPoints: DataPoint[] = [];
   
-  items: {ref: string, dataPoints: DataPoint[]}[] = []
   
   refList: string[] = [];
   myControl = new FormControl('', [this.ValidateRef(this)]);
   filteredOptions: Observable<string[]>;
   intervalChange;
+  subjectChange = new Subject<{ref: string, dp: DataPoint[]}>();
   
-  constructor(private service: SensorService, private cdRef:ChangeDetectorRef){
+  constructor(private service: SensorService){
   }
 
   ngAfterViewInit(): void {
@@ -85,6 +86,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   changeDate(date: Date) {
     this.date = date;
+    this.ref = DEFAULT_CAR_REF;
+    console.log("change date")
+    console.log(this.date)
     this.changeRefList()
     this.changeInterval()
   }
@@ -100,13 +104,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   change() {
     this.service.getSensorsPresentData(this.ref, this.date).subscribe(sensors => {
-      this.items = []
-      this.cdRef.detectChanges()
-      console.log(this.date)
-      console.log(sensors)
       const presentData: DataPoint[] = this.service.getPresentData(sensors)
-      this.items.push({ref: this.ref, dataPoints: presentData})
-      this.cdRef.detectChanges()
+      this.dataPoints = presentData;
+      this.subjectChange.next({dp: this.dataPoints, ref: this.ref})
     })
   }
 

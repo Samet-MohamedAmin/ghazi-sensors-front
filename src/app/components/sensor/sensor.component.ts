@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Observable, Observer, Subject } from 'rxjs';
 import * as CanvasJS from '../../canvasjs.min';
 import { DataPoint } from '../../models/data-point.interface';
 
@@ -10,8 +11,9 @@ import { DataPoint } from '../../models/data-point.interface';
 export class SensorComponent implements AfterViewInit {
   chart: any;
 
-  @Input() ref;
-  @Input() dataPoints: DataPoint[];
+  ref = "";
+  dataPoints: DataPoint[];
+  @Input() subject: Subject<any>;
 
   constructor() {}
 
@@ -20,7 +22,7 @@ export class SensorComponent implements AfterViewInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: `${this.ref} presence`
+        text: `Car presence`
       },
       axisY: {
         minimum: 0,
@@ -36,9 +38,20 @@ export class SensorComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const chart = this.generateChart();
+    this.subject.subscribe({
+      next: (item: {ref: string, dp: DataPoint[]}) => {
+        console.log("next from sensor component")
+        console.log(item)
+        this.dataPoints = item.dp
+        this.chart.options.data[0].dataPoints = item.dp
+        this.chart.options.title.text = `${item.ref} presence`
+        this.chart.render();
+      }
+    })
 
-    chart.render();
+    this.chart = this.generateChart();
+    this.chart.render();
   }
+
 
 }
