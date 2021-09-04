@@ -25,8 +25,12 @@ export class SensorComponent implements AfterViewInit {
       title: {
         text: `${this.ref} presence`
       },
+      axisY: {
+        minimum: 0,
+        maximum: 1,
+      },
       data: [{
-        type: "spline",
+        type: "stepArea",
         dataPoints: this.dataPoints
       }]
     });
