@@ -52,10 +52,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ValidateRef(it) {
     return (control: AbstractControl) => {
-      if (control.value in it.refList === false) {
-        return { invalidRef: true };
+      for(let i in it.refList) {
+        const ref = it.refList[i]
+        if(control.value == ref) {
+          return null
+        }
       }
-      return null;
+      return { invalidRef: true };
     }
   }
 
