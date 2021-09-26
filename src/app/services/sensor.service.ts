@@ -14,16 +14,16 @@ export class SensorService {
   constructor(private http: HttpClient) {}
 
    getSensorsData(date: Date): Observable<Sensors[]> {
-    const year: number =date.getFullYear();
-    const month: number =date.getMonth();
+    const year: number = date.getFullYear();
+    const month: number = date.getMonth() + 1;
     const day: number = date.getDate();
     const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/date/${year}/${month}/${day}`;
     return this.http.get<Sensors[]>(URL);
   }
 
   getSensorsPresentData(ref: string, date: Date): Observable<Sensors[]>{
-    const year: number =date.getFullYear();
-    const month: number =date.getMonth();
+    const year: number = date.getFullYear();
+    const month: number = date.getMonth() + 1;
     const day: number = date.getDate();
     const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/ref/${ref}/date/${year}/${month}/${day}`;
 
@@ -35,8 +35,8 @@ export class SensorService {
   }
 
   getRefList(date: Date): Observable<string[]>{
-    const year: number =date.getFullYear();
-    const month: number =date.getMonth();
+    const year: number = date.getFullYear();
+    const month: number = date.getMonth() + 1;
     const day: number = date.getDate();
     const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/reflist/date/${year}/${month}/${day}`;
     console.log(URL)
