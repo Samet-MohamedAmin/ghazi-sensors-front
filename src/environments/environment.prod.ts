@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BACKEND_URL: "https://ghazi-sensors.herokuapp.com",
+  BACKEND_URL: "https://wacim-sensors.herokuapp.com",
 };
