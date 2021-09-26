@@ -36,7 +36,7 @@ export class SensorService {
 
   getRefList(date: Date): Observable<string[]>{
     const year: number =date.getFullYear();
-    const month: number =date.getMonth()+1;
+    const month: number =date.getMonth();
     const day: number = date.getDate();
     const URL:string = environment.BACKEND_URL + this.SENSORS_PATH + `/reflist/date/${year}/${month}/${day}`;
     console.log(URL)
