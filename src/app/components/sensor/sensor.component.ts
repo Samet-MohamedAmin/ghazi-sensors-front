@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { Observable, Observer, Subject } from 'rxjs';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Subject } from 'rxjs';
 import * as CanvasJS from '../../canvasjs.min';
 import { DataPoint } from '../../models/data-point.interface';
 

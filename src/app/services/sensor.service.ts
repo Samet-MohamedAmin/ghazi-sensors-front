@@ -31,7 +31,9 @@ export class SensorService {
   }
 
   getPresentData(sensors: Sensors[]): DataPoint[] {
-    return sensors.map(s => {const d = new Date(s.date) ;return {y: s.isPresent, label: d.toLocaleTimeString()}})
+    // a problem here should be fixed
+    // d.getHours() - 1
+    return sensors.map(s => {const d = new Date(s.date) ;return {y: s.isPresent, label: `${d.getHours()-1}:${d.getMinutes()}`}})
   }
 
   getRefList(date: Date): Observable<string[]>{
